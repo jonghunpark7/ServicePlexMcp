@@ -10,6 +10,7 @@ jobs:
 build-and-test:
 runs-on: ubuntu-latest
 
+```
 steps:
   - name: Checkout repository
     uses: actions/checkout@v4
@@ -31,4 +32,5 @@ steps:
       SERVER_PID=$!
       sleep 5
       kill $SERVER_PID || true
-      echo "MCP server started succes
+      echo "MCP server started successfully."
+```
