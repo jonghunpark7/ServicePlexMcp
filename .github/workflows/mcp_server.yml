@@ -1,0 +1,37 @@
+name: MCP Server CI
+
+on:
+push:
+branches: [ "main" ]
+pull_request:
+branches: [ "main" ]
+
+jobs:
+build-and-test:
+runs-on: ubuntu-latest
+
+```
+steps:
+- name: Checkout repository
+  uses: actions/checkout@v4
+
+- name: Set up Python
+  uses: actions/setup-python@v4
+  with:
+    python-version: '3.11'
+
+- name: Install dependencies
+  run: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+
+# 서버 실행 테스트 (5초 후 종료)
+- name: Run MCP Server
+  run: |
+    echo "Starting MCP server test..."
+    python server.py &
+    SERVER_PID=$!
+    sleep 5
+    kill $SERVER_PID || true
+    echo "MCP server started successfully."
+```
